@@ -38,14 +38,17 @@ router.post('/register', async (request, response) => {
     var password = request.body.password;
     var password2 = request.body.password2;
 
+
+    console.log(request.body);
+
     let existingUsers = await loadUsers();
 
-    // Check id user enterd same password.
+    // Check id user entered same password.
     if (password !== password2) return response.status(500).send('Passwords do not match.');
 
     // Do the username already exist?
     const users = await loadUsers();
-    let existingUser = await users.findOne({ username: username, email: email });
+    let existingUser = await existingUsers.findOne({ username: username, email: email });
     if (existingUser !== null) return response.status(500).send('Username already taken.');
 
 
@@ -62,6 +65,7 @@ router.post('/register', async (request, response) => {
                 username: username,
                 password: hash,
                 email: email,
+                isAdmin: false,
                 wantNewsMail: true,
                 createdAt: new Date()
             });
