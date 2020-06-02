@@ -1,0 +1,308 @@
+:root {
+    --col1: #624763;
+    --col2: rgb(241, 240, 243);
+    --col3: #372554;
+    --col4: #C89933;
+    --col5: #1E1E24;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body, html {
+    font-family: 'Roboto Mono', monospace;
+}
+
+.navigation {
+    height: 50px;
+    background-color: black;
+    color: white;
+}
+
+.content {
+    padding-left: 20vw;
+    padding-right: 20vw;
+}
+
+#main-content {
+    min-height: calc(100vh - 100px);
+}
+
+.nav-menu {
+    justify-content: space-between;
+    height: 50px;
+}
+
+.flex-h{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.navbar {
+    height: 50px;
+    margin: 0;
+    list-style: none;
+    justify-content: space-evenly;
+    text-align: center;
+    align-items: center;
+    padding: 0;
+}
+
+.nav-menu-item {
+    height: 50px;
+    margin-right: 20px;
+    padding-top: 25px;
+    text-align: center;    
+}
+
+.nav-menu-item>a {
+    font-size: 15px;
+    color: white;
+    text-decoration: none;
+    transition: 0.5s;
+    padding-right: 10px;
+}
+
+.nav-menu-item>a:hover {
+    font-size: 20px;
+    transition: .5s;
+}
+
+.footer {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 50px;
+    background-color: black;
+    color: white;
+}
+
+.spacer-40 {
+    width: 40px;
+}
+
+.social>a {
+    text-decoration: none;
+    color: white;
+    
+}
+
+.margin-top {
+    margin-top: 40px;
+}
+
+#login-form {
+    margin-top: 30px;
+    padding-top: 20px;
+    color: white;
+    width: 100%;
+    height: 500px;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.message {
+    padding-left: 40px;
+    color: red;
+}
+
+.login-register {
+    padding: 20px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.login, .register {
+    align-items: center;
+    width: 40%;
+    border: solid 1px white;
+    border-radius: 3px;
+}
+
+.login-title {
+    padding: 15px;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.flex-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.stretch-col {
+    height: 100%;
+}
+
+.form-item {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.submit-button {
+    margin-top: 20px;
+    width: 50%;
+    height: 30px;
+
+}
+
+.hlabel {
+    padding: 0;
+    margin: 0;
+    margin-left: 40px;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    width: calc(100% - 80px);
+    height: 20px;
+    margin: 0;
+    border-radius: 0;
+    padding: 10px 40px;
+    font-size: 18px;
+    transition: height .5s;
+}
+
+.input-field:hover {
+    height: 30px;
+    transition: height .5s;
+}
+
+input {
+    border: none;
+}
+
+.input-field:focus {
+    height: 30px;
+    transition: height .5s;
+}
+
+.btn {
+    margin-bottom: 10px;
+    margin-right: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    min-width: 100px;
+    height: 30px;
+    box-shadow: none;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color .5s;
+}
+
+.btn:hover {
+    cursor: pointer;
+    background-color: var(--col1);
+    transition: background-color .5s;
+}
+
+.infobutton {
+    background-color: var(--col1);
+}
+
+.loanbutton {
+    background-color: var(--col3);
+}
+
+.returnbutton {
+    background-color: var(--col3);
+}
+
+.triviabutton {
+    background-color: var(--col4);
+}
+
+.btn-login {
+    background-color: var(--col4);
+    height: 40px;
+    margin-left: 40px;
+}
+
+.btn-register {
+    background-color: var(--col1);
+}
+
+.btn-disabled {
+    margin-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    min-width: 100px;
+    height: 30px;
+    box-shadow: none;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    
+    background-color: lightgrey;
+    color: grey;
+    text-decoration: line-through;
+}
+
+.registerInfo {
+    align-self: flex-end;
+    margin-bottom: 10px;
+}
+
+.registerBottom {
+    position: absoulute;
+}
+
+#registerInfoText {
+    /* position: relative; */
+    width: 200px;
+    height: 200px;
+    background-color: var(--col1);
+    color: white;
+    padding: 15px;
+    border: solid white 2px;
+    border-radius: 5px;
+    /* left: 300px; */
+    /* top: -150px; */
+    z-index: 5;
+    display: none;
+}
+
+.add-trivia {
+    padding-top: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+thead {
+    height: 25px;
+}
+
+th {
+    text-align: left;
+    background-color: var(--col1);
+    color: white;
+    height: 25px;
+    padding: 5px;
+}
+
+tr {
+    border: solid black 1px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+td {
+    border: solid black 1px;
+    border-collapse: collapse;
+    align-items: center;
+    padding: 5px;
+}
+

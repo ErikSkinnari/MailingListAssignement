@@ -1,9 +1,49 @@
 <%- include('partials/header') %>
 
-<h1>Admin page</h1>
-<p>Hello <%= username %></p>
+<div class="content">
 
-<p>Press this lovely button to get a list of email recipients</p>
-<button class="btn" id="recipientButton">Button</button>
+    <h1>Admin page</h1><br>
+    <p>Hello <%= username %></p>
+    <br><br>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Subscribed</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(let i = 0; i < users.length; i++) { %>
+            <tr>
+                <th><%= users[i].username %></th>
+                <th><%= users[i].email %></th>
+                <th><%= users[i].wantNewsMail === true ? 'Yes' : 'No' %></th>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+    <br>
+
+
+    <div class="flex-h">
+        <button class="btn btn-register" id="emailListButton">GetEmailList</button>
+        <p>Press this lovely button to get a list of email recipients</p>
+    </div>
+    <div id="emailListDiv" class="hidden">
+        <p name="emailListArea" id="emailListArea"><%= csv %></p>
+    </div>
+
+</div>
+
+<script>
+
+    let emailListDiv = document.getElementById('emailListDiv');
+    let emailListButton = document.getElementById('emailListButton');
+    emailListButton.addEventListener('click', () => {
+        emailListDiv.classList.toggle('hidden');
+    })
+</script>
 
 <%- include('partials/footer') %>

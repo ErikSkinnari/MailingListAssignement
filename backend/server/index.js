@@ -35,15 +35,29 @@ app.use('/public', express.static('public'));
 
 
 const users = require('./routes/api/users');
-app.use('/api/users', users);
+app.use('/api/users', users); 
 
 
-// const admin = require('./routes/admin/admin');
-// app.use('/admin', admin);
+const port = process.env.PORT || 5000;
 
-app.get('/admin', checkAuthentication, (request, response) => {
-    response.render('admin.ejs', { username: request.user.username });
+app.listen(port, () => console.log(`Server is started at port: ${port}`));
+
+
+app.get('/admin', checkAuthentication, async (request, response) => {
+    let userList = await loadUsers();
+    userData = await userList.find({}).toArray();
+
+    let emailCSV = '';
+    for (let i = 0; i < userData.length; i++) {
+        emailCSV += userData[i].email + ',';        
+    }
+    emailCSV = emailCSV.substring(0, emailCSV.length - 1);
+
+
+    console.log(emailCSV);
+    response.render('admin.ejs', { username: request.user.username, users: userData, csv: emailCSV });
 })
+
 app.get('/admin/login', checkNotAuthenticated, (request, response) => {
     response.render('login.ejs');
 })
@@ -54,12 +68,10 @@ app.post('/admin/login', checkNotAuthenticated, passport.authenticate('local', {
     failureFlash: true
 }))
 
-const port = process.env.PORT || 5000;
 
-app.listen(port, () => console.log(`Server is started at port: ${port}`));
+
 
 async function loadUsers() {
-
     const client = await mongodb.MongoClient.connect(connectionString, {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -68,6 +80,8 @@ async function loadUsers() {
     return client.db('MailingListAssignement').collection('users');
 }
 
+
+// Get user data by different attributes..
 async function getUserByEmail(email) {
     const userList = await loadUsers();
     return userList.findOne({ email: email });
@@ -82,6 +96,8 @@ async function getUserById(id) {
     const users = await loadUsers();
     return users.findOne({ _id: new mongodb.ObjectID(id) });
 }
+
+
 
 
 // Authentication-checking middleware

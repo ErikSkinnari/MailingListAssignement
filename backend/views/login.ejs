@@ -1,12 +1,38 @@
 <%- include('partials/header') %>
+<div class="content">
 
 <h1>Admin Login Page</h1>
 
-<% if(messages.error) { %>
-    <%= messages.error  %> 
-<% } %>
+<div class="login" id="login-form">
+    <form class="forms" action="/admin/login" method="POST">
+        <div class="flex-col stretch-col">
 
-<form action="/admin/login" method="POST">
+            <div>
+                <div class="form-item">
+                    <label for="username"><h3 class="hlabel">Username</h3></label>
+                    <input class="input-field" type="text" id="username" name="username" placeholder="username">
+                </div>
+                <br>
+                <div class="form-item">
+                    <label for="pwd"><h3 class="hlabel">Password</h3></label>
+                    <input class="input-field" type="password" id="password" name="password" placeholder="password">
+                </div>
+            </div>
+            
+            <div class="flex-h">
+                <button class="btn btn-login" id="submit"><h3>Login</h3></button>
+
+                <% if(messages.error) { %>
+                    <p class="message"><%= messages.error  %></p>
+                <% } %>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<!-- <form action="/admin/login" method="POST">
     <div>
         <label for="username">Username</label>
         <input type="text" name="username" id="username">
@@ -14,6 +40,7 @@
         <input type="password" name="password" id="password">
         <button id="submit">Login</button>
     </div>
-</form>
+</form> -->
+</div>
 
 <%- include('partials/footer') %>
