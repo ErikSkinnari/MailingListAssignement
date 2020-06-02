@@ -228,6 +228,7 @@ input {
 
 .btn-register {
     background-color: var(--col1);
+    height: 40px;
 }
 
 .btn-register:hover {

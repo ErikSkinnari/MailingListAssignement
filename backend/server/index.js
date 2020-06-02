@@ -51,7 +51,7 @@ app.get('/admin', checkAuthentication, async (request, response) => {
 
     let emailCSV = '';
     for (let i = 0; i < userData.length; i++) {
-        emailCSV += userData[i].email + ',';        
+        if(userData[i].wantNewsMail) emailCSV += userData[i].email + ',';
     }
     // Remove last comma.
     emailCSV = emailCSV.substring(0, emailCSV.length - 1); 
