@@ -9,6 +9,7 @@ const passport = require('passport');
 const mongodb = require('mongodb');
 const flash = require('express-flash');
 const session = require('express-session');
+const methodOverride = require('method-override');
 
 const connectionString = process.env.CONNECTION_STRING;
 
@@ -30,6 +31,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(methodOverride('_method'));
 
 app.use('/public', express.static('public'));
 
@@ -51,11 +53,13 @@ app.get('/admin', checkAuthentication, async (request, response) => {
     for (let i = 0; i < userData.length; i++) {
         emailCSV += userData[i].email + ',';        
     }
-    emailCSV = emailCSV.substring(0, emailCSV.length - 1);
+    // Remove last comma.
+    emailCSV = emailCSV.substring(0, emailCSV.length - 1); 
 
 
-    console.log(emailCSV);
-    response.render('admin.ejs', { username: request.user.username, users: userData, csv: emailCSV });
+
+    // console.log(emailCSV);
+    response.render('admin.ejs', { user: request.user, users: userData, csv: emailCSV });
 })
 
 app.get('/admin/login', checkNotAuthenticated, (request, response) => {
@@ -67,6 +71,11 @@ app.post('/admin/login', checkNotAuthenticated, passport.authenticate('local', {
     failureRedirect: '/admin/login',
     failureFlash: true
 }))
+
+app.delete('/logout', (request, response) => {
+    request.logOut();
+    response.redirect('/admin/login');
+})
 
 
 

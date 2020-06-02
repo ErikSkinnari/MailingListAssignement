@@ -230,6 +230,10 @@ input {
     background-color: var(--col1);
 }
 
+.btn-register:hover {
+    background-color: var(--col4);
+}
+
 .btn-disabled {
     margin-bottom: 10px;
     padding-left: 15px;
