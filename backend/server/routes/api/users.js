@@ -22,10 +22,10 @@ router.post('/login', async (request, response) => {
             throw err
         } else if (!isMatch) {
             console.log("Password doesn't match!");
-            response.status(500).send("Password doesn't match!"); // TODO What should this mean?
+            response.status(500).send("Password doesn't match!");
         } else {
             console.log("Password matches!");
-            response.status(201).send("Password matches!"); // TODO How to set user as logged in?
+            response.status(201).send("Password matches!");
         }
     });
 });
@@ -38,7 +38,6 @@ router.post('/register', async (request, response) => {
     var password = request.body.password;
     var password2 = request.body.password2;
 
-
     console.log(request.body);
 
     let existingUsers = await loadUsers();
@@ -50,7 +49,6 @@ router.post('/register', async (request, response) => {
     const users = await loadUsers();
     let existingUser = await existingUsers.findOne({ username: username, email: email });
     if (existingUser !== null) return response.status(500).send('Username already taken.');
-
 
     // Hash password and save user to db.
     let saltRounds = 15;
@@ -75,6 +73,18 @@ router.post('/register', async (request, response) => {
     });
 });
 
+router.put('/subscribe', async (request, response) => {
+    const users = await loadUsers();
+
+    console.log(request.body.id);
+    console.log(request.body.bool);
+
+    const updatedUserr = await users.updateOne(
+        { _id: new mongodb.ObjectID(request.body.id) }, 
+        { $set: { wantNewsMail : request.body.bool }});
+
+    response.status(201).send();
+})
 
 
 router.get('/', async (request, response) => {
@@ -90,7 +100,6 @@ router.get('/:id', async (request, response) => {
 });
 
 
-
 router.delete('/:id', async (request, response) => {
     const users = await loadUsers();
 
@@ -99,18 +108,17 @@ router.delete('/:id', async (request, response) => {
 });
 
 
-module.exports = router;
-
 async function loadUsers() {
-
+    
     const client = await mongodb.MongoClient.connect(connectionString, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     });
-
+    
     return client.db('MailingListAssignement').collection('users');
 }
 
+module.exports = router;
 
 
 
