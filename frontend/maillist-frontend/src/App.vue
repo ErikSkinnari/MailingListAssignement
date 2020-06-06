@@ -1,10 +1,12 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/profile">Profile</router-link>
+    <div id="nav" class="d-flex justify-content-between">
+      <div>
+      <router-link to="/">Login</router-link> |
+      <router-link to="/profile">Profile</router-link> |
+      <router-link to="/about">About</router-link>
+      </div>
+      <b-button variant="warning">Log out</b-button>
     </div>
     <router-view/>
   </div>
@@ -21,11 +23,13 @@
 
 #nav {
   padding: 30px;
+  background-color: black;
 }
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: white;
+  /* color: #2c3e50; */
 }
 
 #nav a.router-link-exact-active {

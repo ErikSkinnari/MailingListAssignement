@@ -1,44 +1,55 @@
 <template>
-    <div class="login-form">
-        <h2>Login</h2>
-        <form action="#" @submit.prevent="login">
-            <div class="form-control">
-                <label for="email">Email</label>
-                <input type="email" name="username" id="username" class="login-input" v-model="username">
-            </div>
+  <div class="d-flex justify-content-center">
+    <b-form @submit="onSubmit" @reset="onReset" v-if="show" class="col-sm-10 col-md-6 col-lg-4 text-left">
+        <br>
 
-            <div class="form-control">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" class="login-input" v-model="password">
-            </div>
+      <b-form-group id="input-email" label="Email address:" label-for="email">
+        <b-form-input id="email" v-model="form.email" type="email" required placeholder="Enter email" ></b-form-input>
+      </b-form-group>
 
-            <div class="form-control">
-                <button type="submit" class="btn-submit">Login</button>
-            </div>
-        </form>
-        
-        
-    </div>
+      <b-form-group id="input-password" label="Password:" label-for="password">
+        <b-form-input id="password" type="password" v-model="form.password" required placeholder="Enter password" ></b-form-input>
+      </b-form-group>
+
+      <b-button type="submit" variant="primary" class="pl-4 pr-4">Log in</b-button>
+
+      <div class="d-flex justify-content-around mt-5 align-items-center">
+        <p>No account? Register here --></p>
+        <router-link to="/register"><b-button type="submit" variant="outline-primary">Register</b-button></router-link>
+      </div>
+    </b-form>
+
+  </div>
 </template>
 
 <script>
 
-export default {
-    name: 'login',
+
+  export default {
     data() {
-        return {
-            username: '',
-            password: ''
-        }
+      return {
+        form: {
+          email: '',
+          name: '',
+          food: null,
+          checked: []
+        },
+        foods: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
+        show: true
+      }
     },
     methods: {
-        login() {
-            this.$store.dispatch('retrieveToken', {
-                username: this.username,
-                password: this.password
-            })
-        }
-
+      onSubmit(evt) {
+        evt.preventDefault()
+        alert(JSON.stringify(this.form))
+      }
     }
-}
+  }
 </script>
+
+<style scoped>
+    .flex {
+        display: flex;
+        flex-direction: row;
+    }
+</style>
