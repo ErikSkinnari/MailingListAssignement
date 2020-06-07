@@ -2,7 +2,7 @@
   <div>
     <h2 class="mt-5">Register new account</h2>
     <div class="d-flex justify-content-center">
-      <b-form @submit="onSubmit" v-if="show" class="col-sm-10 col-md-6 col-lg-4 text-left">
+      <b-form @submit.prevent="register" v-if="show" class="col-sm-10 col-md-6 col-lg-4 text-left">
         <br />
 
         <b-form-group id="input-email" label="Email address:" label-for="email">
@@ -50,13 +50,14 @@ export default {
   },
   methods: {
       register: function () {
-        let data = {
-          name: this.name,
-          email: this.username,
-          password: this.password,
-          is_admin: this.is_admin
+        let newUser = {
+          username: this.form.username,
+          email: this.form.email,
+          password: this.form.password,
+          password2: this.form.password2,
+          subscribe: this.form.subscribe
         }
-        this.$store.dispatch('register', data)
+        this.$store.dispatch('register', newUser)
        .then(() => this.$router.push('/'))
        .catch(err => console.log(err))
       }
