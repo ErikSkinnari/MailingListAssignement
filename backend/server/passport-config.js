@@ -7,11 +7,11 @@ function initialize(passport, getUserByUsername) {
         const user = await getUserByUsername(username);
         console.log(user);
         if (user == null) {
-            return done(null, false, { message: 'User not found'});
+            return done(null, false, { message: 'Login failed'});
         }
 
         if (user.isAdmin == null || user.isAdmin == false) {
-            return done(null, false, { message: 'Not authorized!'});
+            return done(null, false, { message: 'Login failed!'});
         }
 
         try {

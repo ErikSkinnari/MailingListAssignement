@@ -34,7 +34,7 @@
             <tr>
                 <th><%= users[i].username %></th>
                 <th><%= users[i].email %></th>
-                <th><%= users[i].wantNewsMail === true ? 'Yes' : 'No' %></th>
+                <th><%= users[i].isSubscribed === true ? 'Yes' : 'No' %></th>
             </tr>
             <% } %>
         </tbody>

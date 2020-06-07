@@ -51,14 +51,11 @@ app.get('/admin', checkAuthentication, async (request, response) => {
 
     let emailCSV = '';
     for (let i = 0; i < userData.length; i++) {
-        if(userData[i].wantNewsMail) emailCSV += userData[i].email + ',';
+        if(userData[i].isSubscribed) emailCSV += userData[i].email + ',';
     }
     // Remove last comma.
     emailCSV = emailCSV.substring(0, emailCSV.length - 1); 
 
-
-
-    // console.log(emailCSV);
     response.render('admin.ejs', { user: request.user, users: userData, csv: emailCSV });
 })
 
