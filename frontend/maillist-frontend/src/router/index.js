@@ -13,12 +13,18 @@ Vue.use(VueRouter)
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: Login,
+    meta: {
+      requiresVisitor: true
+    }
   },
   {
     path: '/register',
     name: 'Register',
-    component: Register
+    component: Register,
+    meta: {
+      requiresVisitor: true
+    }
   },
   {
     path: '/profile',
@@ -45,14 +51,24 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if(to.matched.some(record => record.meta.requiresAuth)) {
-    if (store.getters.isLoggedIn) {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!store.getters.loggedIn) {
+      next({
+        path: '/login',
+      })
+    } else {
       next()
-      return
     }
-    next('/login') 
+  } else if (to.matched.some(record => record.meta.requiresVisitor)) {
+    if (store.getters.loggedIn) {
+      next({
+        path: '/profile',
+      })
+    } else {
+      next()
+    }
   } else {
-    next() 
+    next()
   }
 })
 

@@ -1,34 +1,43 @@
 <template>
   <div>
-      <h2>User Info</h2>
+      <h2 class="mt-5">User Info</h2>
       <div class="info">
-          <h4>Username: {{ this.user.username }} </h4>
-          <p>Email: {{ this.user.email }} </p>
-          <p>Subscribed: {{ this.user.isSubscribed ? 'Yes' : 'No'}} </p>
-          <b-button v-if="this.user.isSubscribed" v-on:click="subscriptionHandler(userData.id)">Unsubscribe</b-button>
-          <b-button variant="primary" v-if="!this.user.isSubscribed" v-on:click="subscriptionHandler(userData.id)">Subscribe</b-button>
+          <h4>Username: {{ user.username }} </h4>
+          <p>Email: {{ user.email }} </p>
+          <p>Subscribed: {{ user.isSubscribed ? 'Yes' : 'No'}} </p>
+
+           <b-form @submit.prevent="subscriptionHandler">
+              <b-button v-if="user.isSubscribed" v-on:click="subscriptionHandler">Unsubscribe</b-button>
+              <b-button variant="primary" v-if="!user.isSubscribed" v-on:click="subscriptionHandler">Subscribe</b-button>
+           </b-form>
       </div>
   </div>
 </template>
 
 <script>
 
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
-    data() {
-        return {
-            user: this.$store.user
-        }
-    },
-    name: "UserInfo",
+    name: "UserProfile",
     methods: {
-        ...mapActions(['fetchUserData', 'subscriptionHandler'])
+        fetchUserData() {
+            this.$store.dispatch('fetchUserData');
+        },
+
+        subscriptionHandler() {
+            this.$store.dispatch('subscriptionHandler', {
+                id: this.user._id,
+                status: !this.user.isSubscribed
+            });
+        }
+
+        // ...mapActions(['fetchUserData', 'subscriptionHandler']),
     },
-    computed: mapGetters(['userData']),
+    computed: mapGetters(['user']),
+
     created() {
-        // this.$store.dispatch()
-        // this.$store.fetchUserData();
+        this.fetchUserData();
     }
 }
 </script>
